@@ -1,0 +1,35 @@
+.hero {
+  background: var(--cultured-2);
+  padding-block: var(--section-padding);
+}
+
+.hero-content { margin-bottom: 60px; }
+
+.hero-subtitle {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.hero-subtitle ion-icon { color: var(--orange-soda); }
+
+.hero-subtitle span {
+  color: var(--dark-jungle-green);
+  font-size: var(--fs-5);
+  font-weight: var(--fw-700);
+}
+
+.hero-title { margin-bottom: 20px; }
+
+.hero-text {
+  color: var(--cadet);
+  font-size: var(--fs-5);
+  line-height: 1.8;
+  padding-left: 15px;
+  border-left: 1px solid;
+  margin-bottom: 30px;
+}
+
+
