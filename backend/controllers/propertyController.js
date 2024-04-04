@@ -141,7 +141,6 @@ const fetchAllProperties = asyncHandler(async (req, res) => {
   try {
     const properties = await Property.find({})
       .populate("category")
-      .limit(12)
       .sort({ createAt: -1 });
 
     res.json(properties);

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import {useAllPropertiesQuery} from '../../redux/api/propertyApiSlics'
 import AdminMenu from "./AdminMenu";
+import Navigation from "../Auth/Navigation";
 
 const AllProperties = () => {
   const { data: properties, isLoading, isError } = useAllPropertiesQuery();
@@ -16,6 +17,7 @@ const AllProperties = () => {
 
   return (
     <>
+    <Navigation/>
       <div className="container mx-[9rem]">
         <div className="flex flex-col  md:flex-row">
           <div className="p-3">
@@ -81,7 +83,7 @@ const AllProperties = () => {
             </div>
           </div>
           <div className="md:w-1/4 p-3 mt-2">
-            <AdminMenu />
+            
           </div>
         </div>
       </div>

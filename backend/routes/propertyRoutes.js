@@ -14,15 +14,15 @@ import { fetchProperties } from "../controllers/propertyController.js";
 router
   .route("/")
   .get(fetchProperties)
-  .post(authenticate, formidable(), addProperty);
+  .post(formidable(), addProperty);
 
 router.route("/allproperties").get(fetchAllProperties);
 router.route("/new").get(fetchNewProperties);
 router
   .route("/:id")
   .get(fetchPropertyById)
-  .put(authenticate,  formidable(), updatePropertyDetails)
-  .delete(authenticate, removeProperty);
+  .put(  formidable(), updatePropertyDetails)
+  .delete( removeProperty);
 
 
 

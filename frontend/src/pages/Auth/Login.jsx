@@ -3,16 +3,19 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCredentials } from '../../redux/features/auth/authSlice';
 import { useLoginMutation } from '../../redux/api/UsersApiSlice';
+import { toast } from 'react-toastify';
 import { GoogleLogin } from 'react-google-login';
 import { gapi } from "gapi-script";
-import Navigation from '../Auth/Navigation'
+import Navigation from './Navigation';
+import Footer from '../User/Footer';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [error, setError] = useState('');
 
   const [login, { isLoading }] = useLoginMutation();
   const { userInfo } = useSelector(state => state.auth);
@@ -39,33 +42,31 @@ function Login() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-  
+    
     // Basic email validation
     if (!email || !email.includes('@') || !email.includes('.')) {
       setError('Please enter a valid email address');
       return;
     }
-  
+    
     // Basic password validation
     if (!password || password.length < 6) {
       setError('Password must be at least 6 characters long');
       return;
     }
-  
-    // Check if the password matches the expected password
-    const expectedPassword = "your_expected_password"; // Replace with your expected password
-    if (password !== expectedPassword) {
-      setError('Wrong password');
-      return;
-    }
-  
+
     try {
       const response = await login({ email, password }).unwrap();
       dispatch(setCredentials(response));
       navigate('/');
+      toast.success('Logged in successfully');
     } catch (error) {
       console.error(error);
-      setError(error.data.message);
+      if (error.data.message === 'Invalid password') {
+        setPasswordError('Incorrect password. Please try again.');
+      } else {
+        setError(error.data.message);
+      }
     }
   };
 
@@ -74,10 +75,10 @@ function Login() {
     console.log("Google login success:", response);
 
     // Extract user's email from the Google response
-    const { name, email } = response.profileObj;
+    const { name,email } = response.profileObj;
 
     // Dispatch action to store credentials or perform any necessary steps
-    dispatch(setCredentials({ name, email }));
+    dispatch(setCredentials({ name,email }));
 
     // Redirect to the home page
     navigate('/');
@@ -86,79 +87,67 @@ function Login() {
   const googleLoginFailureHandler = (error) => {
     // Handle failed Google login
     console.error("Google login failure:", error);
-    setError("Failed to login with Google. Please try again.");
+    toast.error("Failed to login with Google. Please try again.");
   };
 
   return (
     <div>
-      <Navigation/>
-      <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
-        <div>
-          <a href="/">
-            <h3 className="text-4xl font-bold text-purple-600">
-              Logo
-            </h3>
-          </a>
-        </div>
-        <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
-          <form>
-            <div className="mt-4">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 undefined"
-              >
-                Email
-              </label>
-              <div className="flex flex-col items-start">
-                <input
-                  type="email" id="email" name="email" value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                />
-              </div>
+      <Navigation />
+      <div className="bg-gray-100 min-h-screen flex justify-center items-center">
+        <div className="max-w-md w-full lg:p-8 md:p-6 sm:p-4 bg-white shadow-lg rounded-lg">
+          <h1 className="text-2xl font-semibold mb-4 text-center">Login</h1>
+          {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
+          {passwordError && <p className="text-red-500 mb-4 text-center">{passwordError}</p>}
+          <form onSubmit={submitHandler}>
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-gray-600">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+                autoComplete="on"
+              />
             </div>
-            <div className="mt-4">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700 undefined"
-              >
-                Password
-              </label>
-              <div className="flex flex-col items-start">
-                <input
-                  type="password" id="password" name="password" value={password} onChange={e => setPassword(e.target.value)}
-                  className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                />
-              </div>
+            <div className="mb-4">
+              <label htmlFor="password" className="block text-gray-600">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+                autoComplete="off"
+              />
             </div>
-            {error && <div className="text-red-500 mb-4">{error}</div>}
-            <div className="flex items-center mt-4">
-              <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600 text-center" onClick={submitHandler}>
-                Login
-              </button>
-            </div>
+            <button
+              disabled={isLoading}
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full cursor-pointer text-center"
+            >
+              {isLoading ? "Logging in..." : "Login"}
+            </button>
           </form>
-          <div className="mt-4 text-grey-600">
-            <Link to={redirect ? `/register?redirect=${redirect}` : `/register`} className="hover:underline text-purple">Don't have an account? Register</Link>
+          <div className="mt-6 text-blue-500 text-center">
+            <Link to={redirect ? `/register?redirect=${redirect}` : `/register`} className="hover:underline">Don't have an account? Sign up Here</Link>
           </div>
-          <div className="flex items-center w-full my-4">
-            <hr className="w-full" />
-            <p className="px-3 ">OR</p>
-            <hr className="w-full" />
-          </div>
-          <div className="flex justify-center"> {/* Container to center Google button */}
+          <div id="googleSignInButton" className="mt-6 text-center">
             <GoogleLogin
               clientId="429348943020-qe603e1vi6ob27tr1vcl51qrrsldhgq7.apps.googleusercontent.com"
-              buttonText="Sign up with Google"
+              buttonText="Login with Google"
               onSuccess={googleLoginSuccessHandler}
               onFailure={googleLoginFailureHandler}
               cookiePolicy={'single_host_origin'}
               isSignedIn={false}
-              className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:bg-red-500"
+              scope="profile email" // Add the 'profile' scope here
             />
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

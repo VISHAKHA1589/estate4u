@@ -8,7 +8,7 @@ import {
 import { toast } from "react-toastify";
 import CategoryForm from "../../components/CategoryForm";
 import Modal from "../../components/Modal";
-import AdminMenu from "./AdminMenu";
+import Navigation from "../Auth/Navigation";
 
 const CategoryList = () => {
   const { data: categories } = useFetchCategoriesQuery();
@@ -89,11 +89,11 @@ const CategoryList = () => {
     }
   };
 
-  return (
-    <div className="ml-[10rem] flex flex-col md:flex-row">
-      <AdminMenu/>
+  return (<><Navigation/>
+    <div className="ml-[20rem] flex flex-col md:flex-row">
+      
       <div className="md:w-3/4 p-3">
-        <div className="h-12">Manage Categories</div>
+        <div className="h-12 section-title text-3xl">Manage Categories</div>
         <CategoryForm
           value={name}
           setValue={setName}
@@ -124,7 +124,7 @@ const CategoryList = () => {
           <button className="bg-pink-500 border text-white  py-2 px-4 rounded-lg m-3 outline hover:bg-pink-500 hover:text-white focus:outline-none foucs:ring-2 focus:ring-pink-500 focus:ring-opacity-50"onClick={handleDeleteCategory}>Delete</button>
         </Modal>
       </div>
-    </div>
+    </div></>
   );
 };
 

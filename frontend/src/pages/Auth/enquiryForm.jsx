@@ -45,9 +45,10 @@ export function EnquiryForm() {
   };  
 
   return (
-    <div className="flex flex-col h-screen w-screen"> {/* Make the container flex column and take full height */}
+    <div className="flex flex-col h-screen w-screen"> 
+
       <Navigation />
-      <div className="flex-grow flex justify-center items-center"> {/* Make the content flex-grow to occupy remaining height */}
+      <div className="flex-grow flex justify-center items-center border border-"> {/* Make the content flex-grow to occupy remaining height */}
         <Card color="transparent" shadow={false} className="flex justify-center items-center">
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             The following details will be sent to the owner

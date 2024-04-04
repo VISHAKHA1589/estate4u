@@ -31,17 +31,18 @@ const AdminMenu = () => {
       {isMenuOpen && (
         <section className="bg-[#151515] p-4 fixed right-7 top-5">
           <ul className="list-none mt-2">
-            <li>
+          <li>
               <NavLink
                 className="list-item py-2 px-3 block mb-5 hover:bg-[#2E2D2D] rounded-sm"
-                to="/admin/dashboard"
+                to="/"
                 style={({ isActive }) => ({
                   color: isActive ? "greenyellow" : "white",
                 })}
               >
-                Admin Dashboard
+                Home
               </NavLink>
             </li>
+            
             <li>
               <NavLink
                 className="list-item py-2 px-3 block mb-5 hover:bg-[#2E2D2D] rounded-sm"

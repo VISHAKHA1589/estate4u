@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useGetPropertyDetailsQuery } from '../../redux/api/propertyApiSlics';
 import { useNavigate, useParams } from 'react-router';
 import { FaLocationArrow } from 'react-icons/fa';
 import Navigation from './Navigation';
 import './PropertyPage.css';
 import EmailForm from './Emailform';
-
 
 const PropertyPage = () => {
   const { id: propertyId } = useParams();
@@ -26,6 +26,14 @@ const PropertyPage = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  // Redirect to login if userInfo is not available
+  const { userInfo } = useSelector(state => state.auth);
+  useEffect(() => {
+    if (!userInfo) {
+      navigate('/login');
+    }
+  }, [navigate, userInfo]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -75,7 +83,6 @@ const PropertyPage = () => {
                 {showCard && (
                   <div className="card-overlay">
                     <div ref={cardRef} className="card">
-                      
                       <div>
                         <EmailForm />
                       </div>

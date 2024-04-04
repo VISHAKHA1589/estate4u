@@ -17,7 +17,12 @@ const propertySchema = mongoose.Schema(
     ownerName: { type: String, required: true },
     phoneNumber: { type: Number, required: true },
     category: { type: ObjectId, ref: "Category", required: true },
-    owner: { type: ObjectId, ref: "User", required: true },
+    owner: {
+      type: String,
+      required: true
+    },
+    
+  
     description: { type: String, required: true },
     price:{type: Number, required: true},
     address:{type: String, required: true}

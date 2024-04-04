@@ -1,25 +1,7 @@
-/*-----------------------------------*\
-  #style.css
-\*-----------------------------------*/
-
-/**
- * copyright 2022 codewithsadee
- */
-
-
-
-
-
-/*-----------------------------------*\
-  #CUSTOM PROPERTY
-\*-----------------------------------*/
 
 :root {
 
-  /**
-   * colors
-   */
-
+ 
   --dark-jungle-green: hsl(188, 63%, 7%);
   --prussian-blue: hsl(200, 69%, 14%);
   --raisin-black-1: hsl(227, 29%, 13%);
@@ -410,18 +392,7 @@ button, a { transition: var(--transition); }
   pointer-events: all;
 }
 
-.header-bottom-actions {
-  background: var(--white);
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  padding-block: 15px 10px;
-  box-shadow: -2px 0 30px hsla(237, 71%, 52%, 0.2);
-  z-index: 3;
-}
+
 
 .header-bottom-actions-btn ion-icon {
   color: hsl(0, 0%, 10%);
@@ -586,7 +557,6 @@ button, a { transition: var(--transition); }
 .service-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 30px;
 }
 
@@ -1126,15 +1096,9 @@ button, a { transition: var(--transition); }
 
 
 
-/*-----------------------------------*\
-  #MEDIA QUERIES
-\*-----------------------------------*/
 
-/**
- * responsive for larger than 600px screen
- */
 
-@media (min-width: 600px) {
+@media (min-width: 0px) {
 
   /**
    * CUSTOM PROPERTY
@@ -1150,6 +1114,11 @@ button, a { transition: var(--transition); }
 
   }
 
+  .header-bottom .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
 
   /**
@@ -1161,22 +1130,13 @@ button, a { transition: var(--transition); }
     margin-inline: auto;
   }
 
-  .has-scrollbar {
-    gap: 25px;
-    margin-inline: -25px;
-    padding-inline: 25px;
-    scroll-padding-left: 25px;
-  }
-
-  .has-scrollbar > li { min-width: calc(50% - 12.5px); }
-
 
 
   /**
    * SERVICE
    */
 
-  .service-list > li { width: calc(50% - 15px); }
+
 
 
 
@@ -1215,9 +1175,6 @@ button, a { transition: var(--transition); }
 
 
 
-/**
- * responsive for larger than 768px screen
- */
 
 @media (min-width: 768px) {
 
@@ -1266,12 +1223,6 @@ button, a { transition: var(--transition); }
 
   .header-top-btn { padding: 10px 20px; }
 
-  .header-bottom-actions {
-    all: unset;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
 
   .header-bottom .container {
     display: flex;
@@ -1292,17 +1243,11 @@ button, a { transition: var(--transition); }
 
 
 
-  /**
-   * HERO
-   */
 
   .hero-content { max-width: 400px; }
 
 
 
-  /**
-   * ABOUT
-   */
 
   .about .section-title { max-width: 30ch; }
 
@@ -1315,9 +1260,6 @@ button, a { transition: var(--transition); }
 
 
 
-  /**
-   * FEATURES
-   */
 
   .features-list > li { width: calc(33.33% - 13.33px); }
 
@@ -1333,10 +1275,6 @@ button, a { transition: var(--transition); }
 
 
 
-  /**
-   * BLOG
-   */
-
   .blog-card { --fs-7: 0.875rem; }
 
   .blog-title { font-size: 1.25rem; }
@@ -1345,17 +1283,9 @@ button, a { transition: var(--transition); }
 
 
 
-  /**
-   * CTA
-   */
-
   .cta-card { --fs-2: 1.625rem; }
 
 
-
-  /**
-   * FOOTER
-   */
 
   .footer { margin-bottom: 0; }
 
@@ -1365,15 +1295,9 @@ button, a { transition: var(--transition); }
 
 
 
-/**
- * responsive for larger than 992px screen
- */
 
 @media (min-width: 992px) {
 
-  /**
-   * CUSTOM PROPERTY
-   */
 
   :root {
 
@@ -1398,18 +1322,11 @@ button, a { transition: var(--transition); }
 
 
 
-  /**
-   * HEADER
-   */
-
   .header-top-list,
   .header-top .wrapper { gap: 30px; }
 
 
 
-  /**
-   * HERO
-   */
 
   .hero-content {
     max-width: unset;
@@ -1441,17 +1358,13 @@ button, a { transition: var(--transition); }
 
 
 
-  /**
-   * SERVICE
-   */
+
 
   .service-list > li { width: calc(33.33% - 20px); }
 
 
 
-  /**
-   * PROPERTY
-   */
+
 
   .property-card .card-content { padding-inline: 30px; }
 
@@ -1459,9 +1372,7 @@ button, a { transition: var(--transition); }
 
 
 
-  /**
-   * FEATURES
-   */
+
 
   .features-list { column-gap: 30px; }
 
@@ -1469,17 +1380,10 @@ button, a { transition: var(--transition); }
 
 
 
-  /**
-   * BLOG
-   */
+
 
   .blog-title { font-size: 1.375rem; }
 
-
-
-  /**
-   * CTA
-   */
 
   .cta-card {
     --fs-2: 1.875rem;
@@ -1495,9 +1399,7 @@ button, a { transition: var(--transition); }
 
 
 
-  /**
-   * FOOTER
-   */
+
 
   .footer-top .container {
     display: flex;
@@ -1517,9 +1419,7 @@ button, a { transition: var(--transition); }
 
 
 
-/**
- * responsive for larger than 1200px screen
- */
+
 
 @media (min-width: 1200px) {
 
@@ -1546,19 +1446,7 @@ button, a { transition: var(--transition); }
 
   .container { max-width: 1200px; }
 
-  .has-scrollbar > li { min-width: calc(33.33% - 16.66px); }
-
-
-
-  /**
-   * HEADER
-   */
-
-  .header-bottom { padding-block: 30px; }
-
-  .header-bottom-actions-btn:last-child,
-  .navbar-top,
-  .overlay { display: none; }
+  
 
   .navbar,
   .navbar.active { all: unset; }
@@ -1584,14 +1472,14 @@ button, a { transition: var(--transition); }
     width: 100%;
   }
 
-  .header.active .header-bottom {
+  /* .header.active .header-bottom {
     position: fixed;
     bottom: auto;
     top: -94px;
     padding-block: 20px;
     box-shadow: 0 10px 50px hsla(237, 71%, 52%, 0.2);
     animation: slideDown 0.25s ease-out forwards;
-  }
+  } */
 
   @keyframes slideDown {
     0% { transform: translateY(0); }

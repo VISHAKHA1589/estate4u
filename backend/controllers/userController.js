@@ -4,9 +4,9 @@ import bcrypt from "bcryptjs";
 import createToken from "../utils/createToken.js";
 
 const createUser = asyncHandler(async (req, res) => {
-  const { username, email, password } = req.body;
+  const { name, email, password } = req.body;
 
-  if (!username || !email || !password) {
+  if (!name || !email || !password) {
     throw new Error("Please fill all the inputs.");
   }
 
@@ -15,7 +15,7 @@ const createUser = asyncHandler(async (req, res) => {
 
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-  const newUser = new User({ username, email, password: hashedPassword });
+  const newUser = new User({ name, email, password: hashedPassword });
 
   try {
     await newUser.save();
@@ -23,7 +23,7 @@ const createUser = asyncHandler(async (req, res) => {
 
     res.status(201).json({
       _id: newUser._id,
-      username: newUser.username,
+      name: newUser.name,
       email: newUser.email,
       isAdmin: newUser.isAdmin,
     });
@@ -52,7 +52,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
       res.status(201).json({
         _id: existingUser._id,
-        username: existingUser.username,
+        name: existingUser.name,
         email: existingUser.email,
         isAdmin: existingUser.isAdmin,
       });
@@ -81,7 +81,7 @@ const getCurrentUserProfile = asyncHandler(async (req, res) => {
   if (user) {
     res.json({
       _id: user._id,
-      username: user.username,
+      name: user.name,
       email: user.email,
     });
   } else {
@@ -94,7 +94,7 @@ const updateCurrentUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
-    user.username = req.body.username || user.username;
+    user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
 
     if (req.body.password) {
@@ -107,7 +107,7 @@ const updateCurrentUserProfile = asyncHandler(async (req, res) => {
 
     res.json({
       _id: updatedUser._id,
-      username: updatedUser.username,
+      name: updatedUser.name,
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
     });
@@ -149,7 +149,7 @@ const updateUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
   if (user) {
-    user.username = req.body.username || user.username;
+    user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
     user.isAdmin = Boolean(req.body.isAdmin);
 
@@ -157,7 +157,7 @@ const updateUserById = asyncHandler(async (req, res) => {
 
     res.json({
       _id: updatedUser._id,
-      username: updatedUser.username,
+      name: updatedUser.name,
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
     });

@@ -3,6 +3,7 @@ import { FaTrash, FaEdit, FaCheck, FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { useGetUsersQuery, useDeleteUserMutation, useUpdateUserMutation } from '../../redux/api/UsersApiSlice';
 import Message from './message';
+import Navigation from '../Auth/Navigation';
 
 
 const UserList = () => {
@@ -48,8 +49,9 @@ const UserList = () => {
   }
 
   
-  return (
-    <div className="p-4">
+  return (<> <Navigation/>
+    <div className="p-8">
+     
       <h1 className="text-2xl font-semibold mb-4">Users</h1>
       {isLoading ? (
         <p>Loading...</p>
@@ -131,7 +133,7 @@ const UserList = () => {
           </table>
         </div>
       )}
-    </div>
+    </div></>
   );
 };
 

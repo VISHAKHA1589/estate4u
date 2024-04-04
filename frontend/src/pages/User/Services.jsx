@@ -1,4 +1,3 @@
-import './services.css'
 
 function Services(){
   return(

@@ -1,4 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
+import dotenv from "dotenv"
+
 cloudinary.config({
   cloud_name: 'dncttioia',
   api_key: '454192933648294',
