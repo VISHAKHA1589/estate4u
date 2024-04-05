@@ -35,11 +35,12 @@ export const RentSmall = () => {
           {rentProperties.slice(0, 5).map((property) => (
             <div key={property.id} className="group relative border border-gray-200 p-2 rounded-lg">
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 h-80">
-                <img
-                  src={property.image.url}
-                  className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                  alt={property.name}
-                />
+              {property.image1 && property.image1.url && ( 
+                  <img
+                    src={property.image1.url}
+                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                    alt={property.name}
+                  />)}
               </div>
               <div className="mt-4 flex justify-between">
                 <div>

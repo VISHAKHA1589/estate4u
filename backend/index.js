@@ -52,34 +52,7 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-// Google OAuth Strategy setup
-passport.use(new GoogleStrategy({
-  clientID: process.env.CLIENT_ID,
-  clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: '/auth/google/callback'
-}, (accessToken, refreshToken, profile, done) => {
-  User.findOne({ googleId: profile.id }, (err, user) => {
-    if (err) return done(err);
-    if (!user) {
-      user = new User({
-        googleId: profile.id,
-        displayName: profile.displayName
-      });
-      user.save(err => {
-        if (err) console.error(err);
-        return done(err, user);
-      });
-    } else {
-      return done(err, user);
-    }
-  });
-}));
 
-// Google OAuth Routes
-app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
-app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect('/');
-});
 
 // Other routes
 app.use('/api/upload', uploadRoutes);

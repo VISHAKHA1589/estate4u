@@ -1,5 +1,5 @@
 import React from 'react';
-import './about.css';
+
 import { IonIcon } from '@ionic/react';
 import { homeOutline, leafOutline, wineOutline, shieldCheckmarkOutline } from 'ionicons/icons';
 function About() {
